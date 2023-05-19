@@ -17,11 +17,6 @@ RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get -y install msodbcsql17
 RUN apt-get -y install unixodbc-dev
 
-# 7.4
-RUN apt-get -y install php-pear php7.4
-RUN update-alternatives --set php /usr/bin/php7.4
-ENV ACCEPT_EULA=Y
-
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
 
