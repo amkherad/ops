@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 
-RUN apt-get update \
+RUN apt-get update && apt-get install -y gnupg2 \
     && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/debian/9/prod.list \
         > /etc/apt/sources.list.d/mssql-release.list \
