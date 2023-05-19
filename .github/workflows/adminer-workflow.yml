@@ -1,9 +1,8 @@
 name: Adminer docker image workflow
-
+run-name: ${{ github.actor }} is building the adminer image
 on:
   push:
     branches: [ "main" ]
-    paths: ["images/adminer/**"]
 
 jobs:
   build-push-image:
