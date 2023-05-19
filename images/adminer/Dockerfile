@@ -1,5 +1,15 @@
 FROM php:7.4-apache
 
+ENV ACCEPT_EULA=Y
+
+# Fix debconf warnings upon build
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install selected extensions and other stuff
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install apt-utils libxml2-dev gnupg apt-transport-https \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
 # Microsoft ODBC 17
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
@@ -22,7 +32,6 @@ RUN pecl -d php_suffix=7.3 install pdo_sqlsrv
 RUN printf "; priority=30\nextension=sqlsrv.so\n" > /etc/php/7.3/mods-available/sqlsrv.ini
 RUN printf "; priority=40\nextension=pdo_sqlsrv.so\n" > /etc/php/7.3/mods-available/pdo_sqlsrv.ini
 RUN phpenmod -v 7.3 sqlsrv pdo_sqlsrv
-
 
 RUN a2enmod rewrite
 
