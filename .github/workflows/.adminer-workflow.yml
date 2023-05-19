@@ -1,0 +1,29 @@
+name: Adminer docker image workflow
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "images/adminer"
+
+jobs:
+  deploy-sts:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          registry: hub.docker.com
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build the image `amkherad/adminer:latest`
+        run: |
+          cd images/adminer
+          docker image build . -t amkherad/adminer:latest
+
+      - name: Push the image `amkherad/adminer:latest``
+        run: |
+          docker push "amkherad/adminer:latest"

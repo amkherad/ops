@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  nginx:
+    container_name: nginx
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8081:81'
+    environment:
+      DB_SQLITE_FILE: "/data/database.sqlite"
+    volumes:
+      - ${DATA_PATH_PREFIX}nginx:/data
+      - ${DATA_PATH_PREFIX}letsencrypt:/etc/letsencrypt
+    networks:
+      local_net:
+        aliases:
+          - nginx
+
+networks:
+  local_net:
+    driver: bridge
+    name: local_net
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.0.0/16
+
