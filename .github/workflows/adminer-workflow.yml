@@ -21,6 +21,6 @@ jobs:
           cd images/adminer
           docker image build . -t amkherad/adminer:latest
 
-      - name: Push the image `amkherad/adminer:latest``
+      - name: Push the image `amkherad/adminer:latest`
         run: |
           docker push "amkherad/adminer:latest"
