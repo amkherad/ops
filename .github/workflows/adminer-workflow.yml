@@ -3,8 +3,7 @@ name: Adminer docker image workflow
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - "images/adminer"
+    paths: ["images/adminer/**"]
 
 jobs:
   build-push-image:
