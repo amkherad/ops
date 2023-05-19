@@ -2,16 +2,16 @@ name: Adminer docker image workflow
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
     paths:
       - "images/adminer"
 
 jobs:
-  deploy-sts:
+  build-push-image:
     runs-on: ubuntu-latest
 
     steps:
-
+      - uses: actions/checkout@v3
       - name: Docker Login
         uses: docker/login-action@v1
         with:
